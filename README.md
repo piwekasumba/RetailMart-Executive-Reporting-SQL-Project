@@ -159,6 +159,7 @@ The query provides a view of store performance relative to target.
 Comparing actual performance with targets gives management a more useful performance measure than reviewing revenue alone. It helps identify stores that are performing above or below their expected level.
 
 **Next Question:**  
+
 Which stores have the largest gaps between actual sales and target, and what factors may explain those gaps?
 ---
 ## Key Findings
