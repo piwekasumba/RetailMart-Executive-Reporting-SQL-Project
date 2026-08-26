@@ -211,31 +211,105 @@ Specific numerical findings are intentionally not stated here unless they can be
 ---
 ## Business / Reporting Insights
 
-The project demonstrates a reporting workflow where SQL analysis is used to answer business questions and support performance monitoring.
+The purpose of the reporting analysis is not only to produce SQL query results, but to connect each result to a business question and explain what the result means for reporting.
 
-Examples include:
+The reporting workflow can be viewed as:
 
-- Comparing revenue across stores to understand location performance
-- Identifying products that contribute strongly to sales
-- Comparing employee sales performance
-- Reviewing customer spending patterns
-- Comparing provincial revenue performance
-- Monitoring returns activity
-- Comparing store sales against targets
+**Business Question → SQL Analysis → Result → Reporting Interpretation**
 
-The business meaning depends on the actual result.
+### Example 1: Store Revenue Performance
 
-For example:
+**Business question:** Which stores generate the highest revenue?
 
-**Business question:**  Which stores generate the highest revenue?
+**SQL analysis:**  
 
-**SQL analysis:**  Aggregate sales revenue by store and rank the results.
+Sales transactions are joined with store information and aggregated to calculate revenue by store.
 
-**Result:**  The query produces a ranked comparison of store revenue.
+**Result:**  
 
-**Reporting interpretation:**  Management can use the comparison to identify stronger- and weaker-performing locations and determine where additional investigation may be useful.
+The query produces a ranked view of store revenue, allowing stores to be compared using the same reporting measure.
 
-This approach demonstrates that the purpose of SQL reporting is not simply to produce numbers, but to make business performance easier to understand and monitor.
+**Reporting interpretation:**  
+
+The result can help management identify stronger and weaker store performance and determine where further investigation may be useful.
+
+### Example 2: Product Performance
+
+**Business question:** Which products contribute the most sales?
+
+**SQL analysis:**  
+
+Product and sales information are combined and aggregated to calculate sales performance by product.
+
+**Result:**  
+
+The query produces a ranked product-level reporting output.
+
+**Reporting interpretation:**  
+
+The comparison can help identify products contributing strongly to sales and products that may require further review.
+
+### Example 3: Employee Performance
+
+**Business question:** Which employees generate the highest sales?
+
+**SQL analysis:**  
+
+Employee and sales records are joined and aggregated to calculate sales performance by employee.
+
+**Result:**  
+
+The report provides a comparable view of employee sales contribution.
+
+**Reporting interpretation:**  
+
+The output can support performance monitoring and help identify differences that management may want to investigate.
+
+### Example 4: Store Target Performance
+
+**Business question:** Are stores achieving their sales targets?
+
+**SQL analysis:**  
+
+Store sales are compared with the available sales-target information.
+
+**Result:**  
+
+The reporting output shows store performance relative to the defined target.
+
+**Reporting interpretation:**  
+
+This provides management with a more useful performance view than revenue alone because actual performance can be considered in relation to an expected target.
+
+### Example 5: Returns Activity
+
+**Business question:** What does the returns data show?
+
+**SQL analysis:**  
+
+Returns information is aggregated and analysed alongside the relevant retail activity.
+
+**Result:**  
+
+The analysis provides a structured view of return activity.
+
+**Reporting interpretation:**  
+
+The result can help identify areas where return activity may require additional investigation and can provide context when reviewing sales performance.
+
+## Reporting Value
+
+The key value of the project is the connection between the SQL result and the business question.
+
+A query result is not treated as the final answer. The reporting process asks:
+
+1. What business question are we answering?
+2. What data is required?
+3. What SQL logic produces the result?
+4. What does the result show?
+5. What could the result mean for management or further analysis?
+
+Specific numerical findings should be taken directly from the SQL query results rather than estimated in the README.
 ---
 ## Data Quality Considerations
 
