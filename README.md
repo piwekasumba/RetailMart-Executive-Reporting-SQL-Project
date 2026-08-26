@@ -81,7 +81,7 @@ The reporting queries include:
 * Returns Analysis
 * Store Sales Target Performance
 
-• The analysis uses relational joins, aggregation and KPI calculations to turn transaction-level data into management reporting outputs.
+ The analysis uses relational joins, aggregation and KPI calculations to turn transaction-level data into management reporting outputs.
 
 The reporting workflow follows:
 
