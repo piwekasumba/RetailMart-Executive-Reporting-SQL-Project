@@ -80,6 +80,87 @@ The reporting queries include:
 
 The analysis uses relational joins and aggregation to turn transaction-level data into reporting outputs.
 ---
+## The analysis uses relational joins and aggregation to turn transaction-level data into reporting outputs.
+---
+
+## Business Question → SQL Analysis → Reporting Meaning
+
+The reporting workflow connects each business question to a SQL analysis and then considers what the resulting information means from a reporting perspective.
+
+### 1. Store Revenue Performance
+
+**Business Question:**  
+Which stores generate the highest revenue?
+
+**SQL Analysis:**  
+Sales transactions are aggregated by store and ranked by total revenue.
+
+**Result:**  
+The query produces a store-level revenue ranking that allows management to compare sales performance across locations.
+
+**Reporting Meaning:**  
+The ranking provides a starting point for identifying stronger and weaker-performing stores. Differences in performance may require further investigation into factors such as sales volume, product mix, customer activity or store-level conditions.
+
+**Next Question:**  
+What factors may explain the difference between higher- and lower-performing stores?
+
+---
+
+### 2. Product Performance
+
+**Business Question:**  
+Which products contribute the most sales?
+
+**SQL Analysis:**  
+Sales are aggregated by product and ranked according to sales performance.
+
+**Result:**  
+The query identifies the products contributing the highest sales within the dataset.
+
+**Reporting Meaning:**  
+Product-level reporting can help management understand which products are contributing most to sales and where product performance may warrant further investigation.
+
+**Next Question:**  
+Are the strongest-selling products also generating strong performance across different stores or provinces?
+
+---
+
+### 3. Employee Performance
+
+**Business Question:**  
+Which employees generate the highest sales?
+
+**SQL Analysis:**  
+Sales transactions are linked to employees and aggregated to produce employee-level sales performance.
+
+**Result:**  
+The query provides a ranked view of employee sales contribution.
+
+**Reporting Meaning:**  
+Employee-level reporting can help management monitor sales contribution and identify performance differences that may require further investigation.
+
+**Next Question:**  
+Are performance differences consistent across stores, or are they influenced by store location and customer activity?
+
+---
+
+### 4. Store Target Performance
+
+**Business Question:**  
+Are stores achieving their sales targets?
+
+**SQL Analysis:**  
+Actual store sales are compared with the corresponding sales targets.
+
+**Result:**  
+The query provides a view of store performance relative to target.
+
+**Reporting Meaning:**  
+Comparing actual performance with targets gives management a more useful performance measure than reviewing revenue alone. It helps identify stores that are performing above or below their expected level.
+
+**Next Question:**  
+Which stores have the largest gaps between actual sales and target, and what factors may explain those gaps?
+---
 ## Key Findings
 
 The project is designed to identify differences in sales performance across stores, products, employees, customers and provinces.
