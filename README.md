@@ -81,7 +81,17 @@ The reporting queries include:
 * Returns Analysis
 * Store Sales Target Performance
 
-## The analysis uses relational joins and aggregation to turn transaction-level data into reporting outputs.
+• The analysis uses relational joins, aggregation and KPI calculations to turn transaction-level data into management reporting outputs.
+
+The reporting workflow follows:
+
+- **Business Question → SQL Analysis → Result → Reporting Interpretation**
+
+-- For example, a store-revenue query does more than rank stores by revenue. The resulting comparison can help management identify stronger- and weaker-performing locations and determine where further investigation may be required.
+
+Similarly, product, employee, customer, provincial and target-performance analysis can be used to compare business performance from different reporting perspectives.
+
+The SQL results remain the evidence base; business interpretations should be made from the actual results rather than assumed in advance.
 ---
 
 ## Business Question → SQL Analysis → Reporting Meaning
@@ -183,24 +193,49 @@ The reporting workflow connects each business question to a SQL analysis and the
 ---
 ## Key Findings
 
-The project is designed to identify differences in sales performance across stores, products, employees, customers and provinces.
+The SQL analysis produces reporting evidence across stores, products, employees, customers, provinces, returns and sales targets.
 
-Rather than treating a query result as the final answer, the reporting outputs provide a basis for asking what is driving the performance and where management may need to investigate further.
+The findings should be interpreted directly from the query results. For example:
 
-Specific findings should be taken from the SQL query results rather than estimated in the README.
+- Store revenue results can be used to compare location performance.
+- Product results can show which products contribute most to sales.
+- Employee results can support performance comparisons.
+- Customer results can highlight differences in customer spending.
+- Provincial results can show regional differences in revenue.
+- Returns results can help identify return activity that may require investigation.
+- Target-performance results can show which stores are above or below their sales targets.
+
+These findings demonstrate how SQL results can become reporting information rather than remaining as isolated query outputs.
+
+Specific numerical findings are intentionally not stated here unless they can be verified directly from the project's SQL results.
 ---
 ## Business / Reporting Insights
 
-The project demonstrates how SQL reporting can help a business:
+The project demonstrates a reporting workflow where SQL analysis is used to answer business questions and support performance monitoring.
 
-* Monitor revenue and sales performance
-* Compare stores and products
-* Review employee and customer performance
-* Track returns
-* Compare performance against targets
-* Identify areas that may require further investigation
+Examples include:
 
-The main reporting lesson is that a useful SQL report should connect a business question to a clear, reproducible result.
+- Comparing revenue across stores to understand location performance
+- Identifying products that contribute strongly to sales
+- Comparing employee sales performance
+- Reviewing customer spending patterns
+- Comparing provincial revenue performance
+- Monitoring returns activity
+- Comparing store sales against targets
+
+The business meaning depends on the actual result.
+
+For example:
+
+**Business question:**  Which stores generate the highest revenue?
+
+**SQL analysis:**  Aggregate sales revenue by store and rank the results.
+
+**Result:**  The query produces a ranked comparison of store revenue.
+
+**Reporting interpretation:**  Management can use the comparison to identify stronger- and weaker-performing locations and determine where additional investigation may be useful.
+
+This approach demonstrates that the purpose of SQL reporting is not simply to produce numbers, but to make business performance easier to understand and monitor.
 ---
 ## Data Quality Considerations
 
