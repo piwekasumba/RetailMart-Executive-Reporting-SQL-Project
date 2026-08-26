@@ -87,7 +87,7 @@ The reporting workflow follows:
 
 - **Business Question → SQL Analysis → Result → Reporting Interpretation**
 
--- For example, a store-revenue query does more than rank stores by revenue. The resulting comparison can help management identify stronger- and weaker-performing locations and determine where further investigation may be required.
+For example, a store-revenue query does more than rank stores by revenue. The resulting comparison can help management identify stronger- and weaker-performing locations and determine where further investigation may be required.
 
 Similarly, product, employee, customer, provincial and target-performance analysis can be used to compare business performance from different reporting perspectives.
 
