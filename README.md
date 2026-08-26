@@ -1,94 +1,122 @@
 # RetailMart Executive Reporting SQL Project
-
-## Project Overview
-
-This project demonstrates how PostgreSQL 18 can be used to design a relational retail database and generate business-focused SQL reports that support management decision-making.
-
-The project simulates a realistic South African retail environment by modelling business data, building relationships between tables, and producing SQL reports that convert transactional data into meaningful business information.
-
-The focus is to demonstrate practical SQL skills, business reporting, data quality awareness, KPI reporting, and analytical thinking commonly required in entry-level Reporting Analyst roles.
-
 ---
-
-# Business Scenario
-
-A national retail company operates multiple stores across South Africa and records daily sales transactions.
-
-Management requires timely, accurate, and reliable reporting to monitor revenue, evaluate product performance, analyse customer purchasing behaviour, identify sales trends, and support operational decision-making.
-
-As a Reporting Analyst, the objective is to transform raw business data into clear, reliable, and actionable information that assists business stakeholders.
-
-This project demonstrates that reporting workflow using PostgreSQL and SQL.
-
+A PostgreSQL project focused on turning retail transaction data into management-ready reporting through SQL, KPI analysis and business-focused queries.
 ---
+## Business Problem
 
-# Project Objectives
+A retail business needs reliable reporting to understand sales performance across stores, products, employees and customers.
 
-* Design a relational retail database using PostgreSQL 18.
-* Create realistic retail business data.
-* Build relationships between multiple business tables.
-* Produce accurate SQL reports for business users.
-* Calculate and summarise key business KPIs.
-* Analyse sales performance across stores, products, employees, and customers.
-* Demonstrate business-focused reporting using SQL.
+Management needs answers to questions such as:
 
+* Which stores generate the most revenue?
+* Which products perform best?
+* Which employees generate the highest sales?
+* Which customers spend the most?
+* How does performance differ by province?
+* Are stores meeting their sales targets?
+* What does the returns data show?
+
+The challenge is to turn structured transactional data into clear reporting that can be used to understand business performance.
 ---
+## Project Objective
 
-# SQL Reports Included
+The objective of this project was to build a relational retail database in PostgreSQL and use SQL to produce business-focused reports.
+
+The project focuses on:
+
+* Building related business tables
+* Loading realistic retail data
+* Joining data across tables
+* Calculating KPIs
+* Comparing business performance
+* Producing reporting outputs for management questions
+---
+## Tools / Technologies
+
+* PostgreSQL 18
+* SQL
+* Relational database design
+* SQL joins
+* Aggregate functions
+* GROUP BY
+* ORDER BY
+* KPI calculations
+---
+## Dataset
+
+This project uses a simulated retail dataset representing a South African retail business.
+
+The data is organised into related business tables covering areas such as stores, products, employees, customers and sales activity.
+
+The dataset is intended for portfolio and learning purposes rather than representing a real company's data.
+---
+## Business Questions
+
+The reporting queries explore questions including:
+
+1. Which stores generate the highest revenue?
+2. Which products contribute the most sales?
+3. Which employees generate the highest revenue?
+4. Which customers spend the most?
+5. Which provinces perform best?
+6. What does the returns activity show?
+7. Are stores achieving their sales targets?
+8. Which performance trends would be useful for management to monitor?
+---
+## SQL Analysis
+
+The project uses SQL to combine and summarise the retail data.
+
+The reporting queries include:
 
 * Executive KPI Summary
 * Revenue by Store
 * Top Selling Products
-* Employee Performance Report
+* Employee Performance
 * Customer Spending Analysis
 * Revenue by Province
 * Returns Analysis
 * Store Sales Target Performance
 
+The analysis uses relational joins and aggregation to turn transaction-level data into reporting outputs.
 ---
+## Key Findings
 
-# Skills Demonstrated
+The project is designed to identify differences in sales performance across stores, products, employees, customers and provinces.
 
-### SQL & Database Skills
+Rather than treating a query result as the final answer, the reporting outputs provide a basis for asking what is driving the performance and where management may need to investigate further.
 
-* PostgreSQL 18
-* SQL
-* Relational Database Design
-* Data Modelling
-* Primary & Foreign Keys
-* SQL Joins
-* Aggregate Functions
-* GROUP BY
-* ORDER BY
-
-### Reporting & Business Skills
-
-* KPI Reporting
-* Executive Reporting
-* Business Reporting
-* Sales Performance Analysis
-* Trend Analysis
-* Business Insights
-* Data Quality Awareness
-* Documentation
-
+Specific findings should be taken from the SQL query results rather than estimated in the README.
 ---
+## Business / Reporting Insights
 
-# Business Questions Answered
+The project demonstrates how SQL reporting can help a business:
 
-This project demonstrates how SQL can answer common management questions such as:
+* Monitor revenue and sales performance
+* Compare stores and products
+* Review employee and customer performance
+* Track returns
+* Compare performance against targets
+* Identify areas that may require further investigation
 
-* Which stores generate the highest revenue?
-* Which products contribute the most sales?
-* Which employees generate the highest revenue?
-* Which customers spend the most?
-* Which provinces perform best?
-* Are stores achieving their sales targets?
-* What business trends require management attention?
-
+The main reporting lesson is that a useful SQL report should connect a business question to a clear, reproducible result.
 ---
+## Data Quality Considerations
 
-# Repository Structure
+Reliable reporting depends on the underlying data being structured consistently.
+
+This project therefore considers:
+
+* Relationships between business tables
+* Primary and foreign-key relationships
+* Consistent values used for reporting
+* Correct joins between related records
+* Accurate aggregation of transactional data
+* Validation of calculated reporting measures
+
+Because the dataset is simulated, the project should be viewed as a demonstration of SQL reporting workflow rather than production reporting.
+---
+## Project Structure
 
 ```text
 RetailMart-Executive-Reporting-SQL-Project
@@ -102,44 +130,34 @@ RetailMart-Executive-Reporting-SQL-Project
 │
 └── Images
 ```
-
 ---
+## How to Run
 
-# Project Preview
-
-### Database Schema
-
-*Add your database schema screenshot.*
-
+1. Install PostgreSQL.
+2. Create a PostgreSQL database for the project.
+3. Run `SQL/01_create_tables.sql` to create the database tables.
+4. Run `SQL/02_insert_data.sql` to load the project data.
+5. Run `SQL/03_reporting_queries.sql` to execute the reporting queries.
+6. Review the query results and compare them with the business questions.
 ---
+## What This Project Demonstrates
 
-### Revenue by Store Report
+This project demonstrates my ability to:
 
-*Add your Revenue by Store screenshot.*
+* Work with PostgreSQL
+* Design and work with relational tables
+* Use SQL joins and aggregations
+* Calculate reporting KPIs
+* Translate business questions into SQL queries
+* Produce structured reporting outputs
+* Think about data quality when preparing business reports
 
+The project is part of my portfolio as I build practical evidence for an entry-level Reporting Analyst role.
 ---
+## About
 
-### Top Selling Products Report
+I am building practical SQL projects focused on business reporting, KPI analysis and data analysis.
 
-*Add your Top Selling Products screenshot.*
+My current focus is developing stronger PostgreSQL skills and learning how to turn business data into clear reporting information.
 
----
-
-# Business Value
-
-The project demonstrates how SQL supports business reporting by transforming transactional retail data into reliable management information.
-
-The reports produced can assist decision-makers in monitoring sales performance, identifying trends, evaluating business performance, and supporting operational planning through structured SQL reporting.
-
----
-
-# About Me
-
-I am an aspiring Reporting Analyst from South Africa with a strong interest in SQL, business reporting, and data analysis.
-
-Through practical PostgreSQL projects, I am developing the skills required to organise business data, produce accurate SQL reports, calculate KPIs, and communicate business insights that support informed decision-making.
-
-My goal is to begin my career as an Entry-Level Reporting Analyst while continuing to learn, contribute, and grow within a data-driven organisation.
-
-Thank you for taking the time to review my project.
 
