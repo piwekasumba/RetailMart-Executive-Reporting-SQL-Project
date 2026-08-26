@@ -1,5 +1,5 @@
 # RetailMart Executive Reporting SQL Project
----
+
 A PostgreSQL project focused on turning retail transaction data into management-ready reporting through SQL, KPI analysis and business-focused queries.
 ---
 ## Business Problem
