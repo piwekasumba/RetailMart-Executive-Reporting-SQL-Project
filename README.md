@@ -52,16 +52,19 @@ The dataset is intended for portfolio and learning purposes rather than represen
 ---
 ## Business Questions
 
-The reporting queries explore questions including:
+The reporting analysis is designed to answer practical management questions:
 
-1. Which stores generate the highest revenue?
-2. Which products contribute the most sales?
-3. Which employees generate the highest revenue?
-4. Which customers spend the most?
-5. Which provinces perform best?
-6. What does the returns activity show?
-7. Are stores achieving their sales targets?
-8. Which performance trends would be useful for management to monitor?
+| Business Question                             | SQL Analysis                                  | Reporting Purpose                                                    |
+|-----------------------------------------------|-----------------------------------------------|----------------------------------------------------------------------|
+| Which stores generate the highest revenue?    | Aggregate sales by store                      | Compare store performance and identify stronger-performing locations |
+| Which products contribute the most sales?     | Aggregate sales by product                    | Understand product contribution to overall sales                     |
+| Which employees generate the highest revenue? | Join employees to sales and aggregate revenue | Compare employee sales performance                                   |
+| Which customers spend the most?               | Aggregate customer sales                      | Identify high-value customer activity                                |
+| Which provinces perform best?                 | Aggregate revenue by province                 | Compare regional performance                                         |
+| What does the returns activity show?          | Analyse returned sales activity               | Monitor potential revenue leakage and return patterns                |
+| Are stores achieving their sales targets?     | Compare actual sales with targets             | Identify stores performing above or below target                     |
+
+The purpose is not only to produce a query result, but to turn each result into information that could support management reporting and further investigation.
 ---
 ## SQL Analysis
 
