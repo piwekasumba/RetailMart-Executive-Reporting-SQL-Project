@@ -1,5 +1,36 @@
-INSERT INTO customers
-(first_name, last_name, gender, email, phone, city, province, join_date)
+-- ==========================================================
+-- RETAILMART EXECUTIVE REPORTING SQL PROJECT
+-- Sample Data Load
+-- PostgreSQL
+--
+-- Purpose:
+-- Load realistic simulated RetailMart data into the
+-- relational database for SQL reporting and analysis.
+--
+-- Reporting Focus:
+-- - Sales performance
+-- - Customer activity
+-- - Product performance
+-- - Store performance
+-- - Returns
+-- - Sales targets
+-- ==========================================================
+
+
+-- ==========================================================
+-- 1. CUSTOMERS
+-- ==========================================================
+
+INSERT INTO customers (
+    first_name,
+    last_name,
+    gender,
+    email,
+    phone,
+    city,
+    province,
+    join_date
+)
 VALUES
 ('Sipho','Dlamini','Male','sipho.dlamini@email.com','0823456789','Johannesburg','Gauteng','2025-01-15'),
 ('Nomsa','Nkosi','Female','nomsa.nkosi@email.com','0834567890','Soweto','Gauteng','2025-02-08'),
@@ -22,8 +53,18 @@ VALUES
 ('David','van Wyk','Male','david.vanwyk@email.com','0824044455','Centurion','Gauteng','2025-08-16'),
 ('Precious','Mokoena','Female','precious.mokoena@email.com','0835055566','Benoni','Gauteng','2025-09-01');
 
-INSERT INTO products
-(product_name, category, brand, unit_price, stock_quantity)
+
+-- ==========================================================
+-- 2. PRODUCTS
+-- ==========================================================
+
+INSERT INTO products (
+    product_name,
+    category,
+    brand,
+    unit_price,
+    stock_quantity
+)
 VALUES
 ('Coca-Cola Original Taste 2L','Beverages','Coca-Cola',24.99,500),
 ('Albany Superior White Bread','Bakery','Albany',18.99,300),
@@ -41,8 +82,18 @@ VALUES
 ('Eggs Large 18 Pack','Dairy','Rainbow',64.99,210),
 ('Sunfoil Cooking Oil 2L','Groceries','Sunfoil',89.99,170);
 
-INSERT INTO stores
-(store_name, city, province, store_type, opening_date)
+
+-- ==========================================================
+-- 3. STORES
+-- ==========================================================
+
+INSERT INTO stores (
+    store_name,
+    city,
+    province,
+    store_type,
+    opening_date
+)
 VALUES
 ('RetailMart Sandton','Johannesburg','Gauteng','Supermarket','2018-03-15'),
 ('RetailMart Rosebank','Johannesburg','Gauteng','Supermarket','2019-07-20'),
@@ -55,8 +106,19 @@ VALUES
 ('RetailMart East London','East London','Eastern Cape','Supermarket','2022-02-15'),
 ('RetailMart Bloemfontein','Bloemfontein','Free State','Supermarket','2020-08-05');
 
-INSERT INTO employees
-(first_name, last_name, position, hire_date, salary, store_id)
+
+-- ==========================================================
+-- 4. EMPLOYEES
+-- ==========================================================
+
+INSERT INTO employees (
+    first_name,
+    last_name,
+    position,
+    hire_date,
+    salary,
+    store_id
+)
 VALUES
 ('Sipho','Mthembu','Sales Associate','2023-01-15',18000.00,1),
 ('Nomsa','Dlamini','Sales Associate','2022-07-10',18500.00,1),
@@ -69,8 +131,21 @@ VALUES
 ('Faith','Naidoo','Store Manager','2021-09-05',44000.00,4),
 ('David','van Wyk','Sales Associate','2023-06-01',19000.00,5);
 
-INSERT INTO sales
-(sale_date, customer_id, product_id, store_id, employee_id, quantity, unit_price, total_amount)
+
+-- ==========================================================
+-- 5. SALES
+-- ==========================================================
+
+INSERT INTO sales (
+    sale_date,
+    customer_id,
+    product_id,
+    store_id,
+    employee_id,
+    quantity,
+    unit_price,
+    total_amount
+)
 VALUES
 ('2025-09-01',1,1,1,1,2,24.99,49.98),
 ('2025-09-01',2,3,1,2,1,39.99,39.99),
@@ -93,17 +168,34 @@ VALUES
 ('2025-09-10',19,4,10,2,3,21.99,65.97),
 ('2025-09-10',20,5,10,2,1,129.99,129.99);
 
-INSERT INTO returns
-(sale_id, return_date, return_reason, refund_amount)
-VALUES
-(2, '2025-09-05', 'Damaged Product', 39.99),
-(5, '2025-09-08', 'Wrong Item Purchased', 129.99),
-(9, '2025-09-10', 'Product Defective', 39.98),
-(14, '2025-09-12', 'Customer Changed Mind', 64.99),
-(18, '2025-09-15', 'Expired Product', 159.96);
 
-INSERT INTO targets
-(store_id, target_month, sales_target)
+-- ==========================================================
+-- 6. RETURNS
+-- ==========================================================
+
+INSERT INTO returns (
+    sale_id,
+    return_date,
+    return_reason,
+    refund_amount
+)
+VALUES
+(2,'2025-09-05','Damaged Product',39.99),
+(5,'2025-09-08','Wrong Item Purchased',129.99),
+(9,'2025-09-10','Product Defective',39.98),
+(14,'2025-09-12','Customer Changed Mind',64.99),
+(18,'2025-09-15','Expired Product',159.96);
+
+
+-- ==========================================================
+-- 7. SALES TARGETS
+-- ==========================================================
+
+INSERT INTO targets (
+    store_id,
+    target_month,
+    sales_target
+)
 VALUES
 (1,'2025-09-01',50000.00),
 (2,'2025-09-01',45000.00),
@@ -115,6 +207,11 @@ VALUES
 (8,'2025-09-01',40000.00),
 (9,'2025-09-01',38000.00),
 (10,'2025-09-01',36000.00);
+
+
+-- ==========================================================
+-- 8. CALENDAR
+-- ==========================================================
 
 INSERT INTO calendar (
     calendar_date,
@@ -136,3 +233,8 @@ FROM generate_series(
     '2025-12-31'::DATE,
     '1 day'
 ) AS d;
+
+
+-- ==========================================================
+-- DATA LOAD COMPLETE
+-- ==========================================================
