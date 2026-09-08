@@ -1,331 +1,396 @@
 # RetailMart Executive Reporting SQL Project
 
-A PostgreSQL project focused on turning retail transaction data into management-ready reporting through SQL, KPI analysis and business-focused queries.
+A PostgreSQL reporting project that turns simulated retail transaction data into management-focused KPIs, performance analysis and business reporting outputs.
+
+The project is designed around a practical Reporting Analyst workflow:
+
+**Business Question → KPI Definition → SQL Analysis → Validation → Reporting Output → Business Interpretation**
+
 ---
-## Business Problem
 
-A retail business needs reliable reporting to understand sales performance across stores, products, employees and customers.
+## Why This Project Exists
 
-Management needs answers to questions such as:
+Retail businesses generate large volumes of transactional information, but raw transactions do not automatically answer management questions.
 
-* Which stores generate the most revenue?
-* Which products perform best?
-* Which employees generate the highest sales?
-* Which customers spend the most?
-* How does performance differ by province?
-* Are stores meeting their sales targets?
-* What does the returns data show?
+A reporting analyst may need to determine:
 
-The challenge is to turn structured transactional data into clear reporting that can be used to understand business performance.
+* Which stores are performing strongly?
+* Which products contribute most to sales?
+* Are stores meeting their targets?
+* How does performance differ across locations?
+* What does returns activity show?
+* Which customers or employees contribute most to sales?
+* Do the numbers remain consistent when the data is analysed from different reporting perspectives?
+
+This project uses PostgreSQL and SQL to explore those questions using a simulated South African retail dataset.
+
+The goal is not to present a production reporting system. The goal is to demonstrate how transactional data can be transformed into structured reporting information.
+
 ---
+
 ## Project Objective
 
-The objective of this project was to build a relational retail database in PostgreSQL and use SQL to produce business-focused reports.
+The objective is to build a relational retail database in PostgreSQL and use SQL to produce business-focused reporting outputs.
 
 The project focuses on:
 
-* Building related business tables
-* Loading realistic retail data
-* Joining data across tables
-* Calculating KPIs
-* Comparing business performance
-* Producing reporting outputs for management questions
+* Relational database structures
+* SQL joins
+* Aggregation
+* KPI calculations
+* Store performance
+* Product performance
+* Employee performance
+* Customer spending
+* Provincial performance
+* Returns analysis
+* Sales-target comparison
+* Data-quality considerations
+* Reporting interpretation
+
 ---
-## Tools / Technologies
+
+## Business Reporting Context
+
+This project represents the **retail/FMCG** side of my portfolio.
+
+Retail reporting can involve measures such as:
+
+* Revenue
+* Sales volume
+* Store performance
+* Product contribution
+* Customer value
+* Returns
+* Target achievement
+* Regional performance
+
+The project therefore provides practical evidence of applying SQL to a business domain rather than treating SQL as syntax-only exercises.
+
+---
+
+## Tools & Technologies
 
 * PostgreSQL 18
 * SQL
-* Relational database design
+* Relational database concepts
 * SQL joins
 * Aggregate functions
-* GROUP BY
-* ORDER BY
+* `GROUP BY`
+* `ORDER BY`
+* Filtering
 * KPI calculations
+* Data validation concepts
+
 ---
+
 ## Dataset
 
-This project uses a simulated retail dataset representing a South African retail business.
+The project uses a simulated retail dataset representing a South African retail business.
 
-The data is organised into related business tables covering areas such as stores, products, employees, customers and sales activity.
+The data is organised into related business tables covering areas such as:
 
-The dataset is intended for portfolio and learning purposes rather than representing a real company's data.
+* Stores
+* Products
+* Employees
+* Customers
+* Sales transactions
+* Sales targets
+* Returns/activity related to sales
+
+The dataset is intended for learning and portfolio purposes.
+
+It does not represent a real company's operational data or real customers.
+
 ---
-## Business Questions
 
-The reporting analysis is designed to answer practical management questions:
+## Core Business Questions
 
-| Business Question                             | SQL Analysis                                  | Reporting Purpose                                                    |
-|-----------------------------------------------|-----------------------------------------------|----------------------------------------------------------------------|
-| Which stores generate the highest revenue?    | Aggregate sales by store                      | Compare store performance and identify stronger-performing locations |
-| Which products contribute the most sales?     | Aggregate sales by product                    | Understand product contribution to overall sales                     |
-| Which employees generate the highest revenue? | Join employees to sales and aggregate revenue | Compare employee sales performance                                   |
-| Which customers spend the most?               | Aggregate customer sales                      | Identify high-value customer activity                                |
-| Which provinces perform best?                 | Aggregate revenue by province                 | Compare regional performance                                         |
-| What does the returns activity show?          | Analyse returned sales activity               | Monitor potential revenue leakage and return patterns                |
-| Are stores achieving their sales targets?     | Compare actual sales with targets             | Identify stores performing above or below target                     |
+| Business Question                           | SQL Analysis                                      | Reporting Purpose                              |
+| ------------------------------------------- | ------------------------------------------------- | ---------------------------------------------- |
+| Which stores generate the highest revenue?  | Aggregate sales by store                          | Compare store performance                      |
+| Which products contribute the most sales?   | Aggregate sales by product                        | Understand product contribution                |
+| Which employees generate the highest sales? | Join employees to sales and aggregate performance | Compare employee sales contribution            |
+| Which customers spend the most?             | Aggregate customer sales                          | Examine customer value                         |
+| Which provinces perform best?               | Aggregate revenue by province                     | Compare regional performance                   |
+| What does returns activity show?            | Analyse return-related activity                   | Identify areas requiring further investigation |
+| Are stores achieving their sales targets?   | Compare actual sales with targets                 | Measure performance against expectations       |
 
-The purpose is not only to produce a query result, but to turn each result into information that could support management reporting and further investigation.
 ---
+
+## Reporting Workflow
+
+The project follows a reporting-oriented workflow:
+
+```text
+Business Question
+        ↓
+Define the Measure
+        ↓
+Identify Required Data
+        ↓
+Join Related Tables
+        ↓
+Calculate KPI / Measure
+        ↓
+Validate the Result
+        ↓
+Produce Reporting Output
+        ↓
+Interpret the Result
+```
+
+This distinction is important because a technically valid SQL query can still produce a misleading reporting result if the underlying definition, join or data treatment is incorrect.
+
+---
+
+## KPI Definition & Reporting Logic
+
+A reporting measure needs a clear definition before it is calculated.
+
+For example, a revenue KPI requires consideration of questions such as:
+
+* Which transactions are included?
+* Which date field defines the reporting period?
+* How are returns treated?
+* Are cancelled transactions included or excluded?
+* Which tables provide the required information?
+* Could joins duplicate transactions?
+* Are the source values consistent?
+
+The project therefore treats KPI calculation as more than writing an aggregate query.
+
+**Business definition → Data treatment → SQL calculation → Validation**
+
+---
+
 ## SQL Analysis
-
-The project uses SQL to combine and summarise the retail data.
 
 The reporting queries include:
 
-* Executive KPI Summary
-* Revenue by Store
-* Top Selling Products
-* Employee Performance
-* Customer Spending Analysis
-* Revenue by Province
-* Returns Analysis
-* Store Sales Target Performance
+### Executive KPI Summary
 
- The analysis uses relational joins, aggregation and KPI calculations to turn transaction-level data into management reporting outputs.
+Provides a high-level view of the available retail performance measures.
 
-The reporting workflow follows:
+### Revenue by Store
 
-- **Business Question → SQL Analysis → Result → Reporting Interpretation**
+Aggregates sales at store level to compare location performance.
 
-For example, a store-revenue query does more than rank stores by revenue. The resulting comparison can help management identify stronger- and weaker-performing locations and determine where further investigation may be required.
+### Top-Selling Products
 
-Similarly, product, employee, customer, provincial and target-performance analysis can be used to compare business performance from different reporting perspectives.
+Ranks products according to sales contribution.
 
-The SQL results remain the evidence base; business interpretations should be made from the actual results rather than assumed in advance.
+### Employee Performance
+
+Connects employee information with sales activity to compare sales contribution.
+
+### Customer Spending Analysis
+
+Aggregates customer-level sales activity to examine differences in customer spending.
+
+### Revenue by Province
+
+Groups sales by province to provide a regional performance view.
+
+### Returns Analysis
+
+Examines return-related activity and provides additional context when interpreting sales performance.
+
+### Store Sales Target Performance
+
+Compares actual sales with available store targets.
+
 ---
 
 ## Business Question → SQL Analysis → Reporting Meaning
 
-The reporting workflow connects each business question to a SQL analysis and then considers what the resulting information means from a reporting perspective.
-
 ### 1. Store Revenue Performance
 
-**Business Question:**  
+**Business question**
 
-- Which stores generate the highest revenue?
+Which stores generate the highest revenue?
 
-**SQL Analysis:**  
+**SQL approach**
 
-- Sales transactions are aggregated by store and ranked by total revenue.
+Sales transactions are aggregated by store and ranked using the relevant revenue measure.
 
-**Result:**  
+**Reporting output**
 
-- The query produces a store-level revenue ranking that allows management to compare sales performance across locations.
+A comparable store-level view of sales performance.
 
-**Reporting Meaning:**  
+**Potential reporting meaning**
 
-- The ranking provides a starting point for identifying stronger and weaker-performing stores. Differences in performance may require further investigation into factors such as sales volume, product mix, customer activity or store-level conditions.
+The output can identify stronger and weaker-performing locations and provide a starting point for further investigation.
 
-**Next Question:**  
+**Next questions**
 
-- What factors may explain the difference between higher- and lower-performing stores?
+* Is the difference driven by transaction volume?
+* Does product mix differ?
+* Is customer activity different?
+* Are returns affecting the comparison?
+* Are stores being compared over the same reporting period?
 
 ---
 
 ### 2. Product Performance
 
-**Business Question:**  
+**Business question**
 
-- Which products contribute the most sales?
+Which products contribute the most sales?
 
-**SQL Analysis:**  
-- Sales are aggregated by product and ranked according to sales performance.
+**SQL approach**
 
-**Result:**  
+Sales activity is aggregated by product and ranked according to the selected measure.
 
-- The query identifies the products contributing the highest sales within the dataset.
+**Reporting output**
 
-**Reporting Meaning:**  
+A product-level performance comparison.
 
-- Product-level reporting can help management understand which products are contributing most to sales and where product performance may warrant further investigation.
+**Potential reporting meaning**
 
-**Next Question:**  
+The output can help identify products that contribute strongly to sales and areas that may require further investigation.
 
-- Are the strongest-selling products also generating strong performance across different stores or provinces?
+**Next questions**
+
+* Do leading products perform consistently across stores?
+* Does product performance differ by province?
+* Are returns concentrated around particular products?
 
 ---
 
 ### 3. Employee Performance
 
-**Business Question:**  
+**Business question**
 
-- Which employees generate the highest sales?
+Which employees contribute the most sales?
 
-**SQL Analysis:**  
+**SQL approach**
 
-- Sales transactions are linked to employees and aggregated to produce employee-level sales performance.
+Employee records are joined with sales activity and aggregated to produce an employee-level view.
 
-**Result:**  
+**Reporting output**
 
-- The query provides a ranked view of employee sales contribution.
+A comparable view of employee sales contribution.
 
-**Reporting Meaning:**  
+**Potential reporting meaning**
 
-- Employee-level reporting can help management monitor sales contribution and identify performance differences that may require further investigation.
-
-**Next Question:**  
-
-- Are performance differences consistent across stores, or are they influenced by store location and customer activity?
+The analysis can support performance monitoring while recognising that differences may also reflect store location, customer activity, product mix or transaction volume.
 
 ---
 
 ### 4. Store Target Performance
 
-**Business Question:**  
+**Business question**
 
-- Are stores achieving their sales targets?
+Are stores achieving their sales targets?
 
-**SQL Analysis:**  
+**SQL approach**
 
-- Actual store sales are compared with the corresponding sales targets.
+Actual sales are compared with the corresponding target information.
 
-**Result:**  
+**Reporting output**
 
-- The query provides a view of store performance relative to target.
+A store-level comparison between actual performance and expected performance.
 
-**Reporting Meaning:**  
+**Potential reporting meaning**
 
-- Comparing actual performance with targets gives management a more useful performance measure than reviewing revenue alone. It helps identify stores that are performing above or below their expected level.
+Target comparison can provide more context than reviewing revenue alone because performance is considered relative to an expected level.
 
-**Next Question:**  
-
-- Which stores have the largest gaps between actual sales and target, and what factors may explain those gaps?
 ---
-## Key Findings
 
-The SQL analysis produces reporting evidence across stores, products, employees, customers, provinces, returns and sales targets.
+### 5. Returns Activity
 
-The findings should be interpreted directly from the query results. For example:
+**Business question**
 
-- Store revenue results can be used to compare location performance.
-- Product results can show which products contribute most to sales.
-- Employee results can support performance comparisons.
-- Customer results can highlight differences in customer spending.
-- Provincial results can show regional differences in revenue.
-- Returns results can help identify return activity that may require investigation.
-- Target-performance results can show which stores are above or below their sales targets.
+What does returns activity show?
 
-These findings demonstrate how SQL results can become reporting information rather than remaining as isolated query outputs.
+**SQL approach**
 
-Specific numerical findings are intentionally not stated here unless they can be verified directly from the project's SQL results.
+Return-related information is analysed alongside the relevant retail activity.
+
+**Reporting output**
+
+A structured view of return activity.
+
+**Potential reporting meaning**
+
+Returns can provide important context when interpreting sales performance and may identify areas requiring additional investigation.
+
 ---
-## Business / Reporting Insights
 
-The purpose of the reporting analysis is not only to produce SQL query results, but to connect each result to a business question and explain what the result means for reporting.
+## Data Quality & Validation
 
-The reporting workflow can be viewed as:
+Reliable reporting depends on the quality and structure of the underlying data.
 
-**Business Question → SQL Analysis → Result → Reporting Interpretation**
+This project considers:
 
-### Example 1: Store Revenue Performance
-
-**Business question:** Which stores generate the highest revenue?
-
-**SQL analysis:**  
-
-Sales transactions are joined with store information and aggregated to calculate revenue by store.
-
-**Result:**  
-
-The query produces a ranked view of store revenue, allowing stores to be compared using the same reporting measure.
-
-**Reporting interpretation:**  
-
-The result can help management identify stronger and weaker store performance and determine where further investigation may be useful.
-
-### Example 2: Product Performance
-
-**Business question:** Which products contribute the most sales?
-
-**SQL analysis:**  
-
-Product and sales information are combined and aggregated to calculate sales performance by product.
-
-**Result:**  
-
-The query produces a ranked product-level reporting output.
-
-**Reporting interpretation:**  
-
-The comparison can help identify products contributing strongly to sales and products that may require further review.
-
-### Example 3: Employee Performance
-
-**Business question:** Which employees generate the highest sales?
-
-**SQL analysis:**  
-
-Employee and sales records are joined and aggregated to calculate sales performance by employee.
-
-**Result:**  
-
-The report provides a comparable view of employee sales contribution.
-
-**Reporting interpretation:**  
-
-The output can support performance monitoring and help identify differences that management may want to investigate.
-
-### Example 4: Store Target Performance
-
-**Business question:** Are stores achieving their sales targets?
-
-**SQL analysis:**  
-
-Store sales are compared with the available sales-target information.
-
-**Result:**  
-
-The reporting output shows store performance relative to the defined target.
-
-**Reporting interpretation:**  
-
-This provides management with a more useful performance view than revenue alone because actual performance can be considered in relation to an expected target.
-
-### Example 5: Returns Activity
-
-**Business question:** What does the returns data show?
-
-**SQL analysis:**  
-
-Returns information is aggregated and analysed alongside the relevant retail activity.
-
-**Result:**  
-
-The analysis provides a structured view of return activity.
-
-**Reporting interpretation:**  
-
-The result can help identify areas where return activity may require additional investigation and can provide context when reviewing sales performance.
-
-## Reporting Value
-
-The key value of the project is the connection between the SQL result and the business question.
-
-A query result is not treated as the final answer. The reporting process asks:
-
-1. What business question are we answering?
-2. What data is required?
-3. What SQL logic produces the result?
-4. What does the result show?
-5. What could the result mean for management or further analysis?
-
-Specific numerical findings should be taken directly from the SQL query results rather than estimated in the README.
----
-## Data Quality Considerations
-
-Reliable reporting depends on the underlying data being structured consistently.
-
-This project therefore considers:
-
-* Relationships between business tables
 * Primary and foreign-key relationships
-* Consistent values used for reporting
-* Correct joins between related records
-* Accurate aggregation of transactional data
-* Validation of calculated reporting measures
+* Correct table relationships
+* Appropriate SQL joins
+* Consistent reporting values
+* Duplicate or unexpected records
+* Accurate aggregation
+* KPI definitions
+* Date-period consistency
+* Validation of calculated measures
+* Treatment of returns and exclusions
 
-Because the dataset is simulated, the project should be viewed as a demonstration of SQL reporting workflow rather than production reporting.
+A particular reporting risk is producing a technically correct query that answers the wrong business question.
+
+For that reason, validation is treated as part of the reporting process rather than as an optional final step.
+
 ---
+
+## Reconciliation Mindset
+
+When two apparently valid reporting queries produce different results, the correct response is not automatically to assume that one query is wrong.
+
+A reporting investigation should consider:
+
+* Date ranges
+* KPI definitions
+* Included/excluded transactions
+* Returns and cancellations
+* Source tables
+* Join conditions
+* Duplicate records
+* Date fields
+* Aggregation logic
+* Data-quality issues
+* Assumptions
+
+The objective is to understand **why the numbers differ before deciding which result should be used**.
+
+---
+
+## Key Reporting Skills Demonstrated
+
+This project provides evidence of:
+
+* PostgreSQL
+* SQL querying
+* Relational data analysis
+* SQL joins
+* Aggregation
+* KPI calculation
+* Business-question translation
+* Data-quality awareness
+* Reporting validation
+* Performance comparison
+* Business-focused interpretation
+
+---
+
+## Portfolio Role Alignment
+
+This project is the flagship reporting project in my SQL portfolio.
+
+It demonstrates the type of work I am using to build practical evidence toward **Junior Reporting Analyst, Reporting Analyst and entry-level Data Analyst opportunities**, with a focus on Johannesburg/Gauteng and credible remote opportunities across South Africa.
+
+The project does not claim professional enterprise reporting experience. It demonstrates portfolio-based practical work using PostgreSQL and simulated data.
+
+---
+
 ## Project Structure
 
 ```text
@@ -340,34 +405,86 @@ RetailMart-Executive-Reporting-SQL-Project
 │
 └── Images
 ```
+
 ---
+
 ## How to Run
 
 1. Install PostgreSQL.
 2. Create a PostgreSQL database for the project.
-3. Run `SQL/01_create_tables.sql` to create the database tables.
-4. Run `SQL/02_insert_data.sql` to load the project data.
-5. Run `SQL/03_reporting_queries.sql` to execute the reporting queries.
-6. Review the query results and compare them with the business questions.
+3. Run:
+
+```text
+SQL/01_create_tables.sql
+```
+
+4. Load the project data using:
+
+```text
+SQL/02_insert_data.sql
+```
+
+5. Run the reporting queries:
+
+```text
+SQL/03_reporting_queries.sql
+```
+
+6. Review the outputs against the business questions documented in this README.
+
 ---
-## What This Project Demonstrates
 
-This project demonstrates my ability to:
+## How to Review This Project
 
-* Work with PostgreSQL
-* Design and work with relational tables
-* Use SQL joins and aggregations
-* Calculate reporting KPIs
-* Translate business questions into SQL queries
-* Produce structured reporting outputs
-* Think about data quality when preparing business reports
+A reviewer can start with:
 
-The project is part of my portfolio as I build practical evidence for an entry-level Reporting Analyst role.
+1. `README.md` — business context and reporting workflow
+2. `SQL/01_create_tables.sql` — database structure
+3. `SQL/02_insert_data.sql` — simulated data
+4. `SQL/03_reporting_queries.sql` — reporting analysis
+
+The most important question when reviewing the project is not simply:
+
+> Can the SQL return a result?
+
+It is:
+
+> Does the SQL answer the defined reporting question using appropriate data and logic?
+
 ---
+
+## Limitations
+
+This is a simulated portfolio project.
+
+It does not represent:
+
+* A real company's reporting environment
+* Production data
+* Real customer information
+* Production ETL infrastructure
+* Enterprise BI tooling
+* Professional employment experience
+
+The project is intended to demonstrate practical SQL and reporting thinking.
+
+---
+
+## What I Am Building Through This Project
+
+I am using this project to strengthen my ability to connect:
+
+**Business Questions → Data → SQL → Validation → Reporting → Business Meaning**
+
+That is the reporting workflow I want my portfolio to demonstrate.
+
+---
+
 ## About
 
-I am building practical SQL projects focused on business reporting, KPI analysis and data analysis.
+I am building practical PostgreSQL and SQL projects focused on business reporting, KPI analysis, data quality and business-focused data analysis.
 
-My current focus is developing stronger PostgreSQL skills and learning how to turn business data into clear reporting information.
+My current portfolio focus is developing credible practical evidence for entry-level Reporting Analyst and Data Analyst opportunities.
+
 
 
