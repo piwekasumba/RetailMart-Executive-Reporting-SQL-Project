@@ -1,10 +1,12 @@
 # RetailMart Executive Reporting SQL Project
 
-A PostgreSQL portfolio project focused on **business reporting, KPI analysis, data quality, reconciliation and management-focused SQL reporting** using simulated South African retail data.
+A PostgreSQL portfolio project focused on **retail business reporting, KPI analysis, data quality, validation and management-focused SQL analysis** using simulated South African retail data.
 
-The project demonstrates how I approach a reporting problem from the **business question through SQL analysis, validation, reconciliation and reporting interpretation** rather than treating a SQL query as the final answer.
+The project demonstrates how I approach a reporting problem from:
 
-> **Portfolio focus:** Junior Reporting Analyst | SQL | PostgreSQL | KPI Reporting | Data Quality | Business Reporting | Reconciliation
+**Business Question → Data → SQL Logic → KPI → Validation → Reporting Output → Business Interpretation**
+
+> **Portfolio focus:** Junior Reporting Analyst | SQL | PostgreSQL | KPI Reporting | Data Quality | Business Reporting | Retail Analytics
 
 ---
 
@@ -12,26 +14,27 @@ The project demonstrates how I approach a reporting problem from the **business 
 
 Retail businesses generate transactional data across stores, products, employees, customers, returns and sales targets.
 
-The reporting challenge is not simply to calculate a number.
+For reporting purposes, calculating a number is only part of the problem.
 
 A reporting analyst also needs to consider:
 
 * What business question is being answered?
-* Which transactions should be included?
-* How should the KPI be defined?
-* Is the underlying data reliable?
-* Could joins duplicate or exclude records?
-* Are returns or cancellations treated consistently?
-* Can the result be reconciled and validated?
-* What does the result actually tell the business?
+* How is the KPI defined?
+* Which records should be included?
+* Are joins producing the intended result?
+* Are returns or other exclusions handled consistently?
+* Can the result be validated?
+* What does the result mean for the business?
 
-This project uses PostgreSQL and SQL to practise that reporting workflow using a simulated retail environment.
+This project uses PostgreSQL to practise that reporting workflow using a simulated retail dataset.
 
 ---
 
 ## Business Context
 
-The project represents a simulated South African retail business with reporting needs across:
+The project represents a simulated South African retail environment.
+
+The analysis focuses on reporting questions relevant to retail and FMCG operations, including:
 
 * Store performance
 * Product performance
@@ -40,53 +43,57 @@ The project represents a simulated South African retail business with reporting 
 * Provincial performance
 * Returns
 * Sales targets
-* Executive-level KPIs
+* Executive KPI reporting
 
-The dataset is simulated and does not represent a real company or real customer information.
+The purpose is not to reproduce the performance of a real company.
+
+The purpose is to demonstrate how SQL can turn transactional retail data into structured reporting information.
 
 ---
 
 ## Project Objective
 
-The objective is to build a relational retail database in PostgreSQL and use SQL to produce business-focused reporting outputs.
+The objective is to build a relational retail database in PostgreSQL and use SQL to answer practical management-reporting questions.
 
-The project follows this reporting workflow:
+The project focuses on:
 
-**Business Question → Data → KPI Definition → SQL Logic → Validation → Reporting Output → Business Interpretation**
-
-The emphasis is on understanding why the number is being calculated, how it should be validated and what the result could help a reporting user investigate.
+* Relational database structures
+* SQL joins
+* Filtering
+* Aggregation
+* KPI calculations
+* Business reporting
+* Data-quality awareness
+* Validation of reporting measures
+* Comparing performance across business dimensions
 
 ---
 
-## Industry Reporting Focus
+## Reporting Workflow
 
-Retail is used deliberately because it provides several practical reporting dimensions.
+The project follows this reporting workflow:
 
-### Store performance
+```text
+Business Question
+       ↓
+Data Required
+       ↓
+KPI / Measure Definition
+       ↓
+SQL Logic
+       ↓
+Validation
+       ↓
+Reporting Output
+       ↓
+Business Interpretation
+       ↓
+Next Question
+```
 
-Revenue, sales activity and target performance can be compared across locations.
+This is intentional.
 
-### Product performance
-
-Product-level sales can be analysed to understand contribution and differences in performance.
-
-### Customer activity
-
-Customer transactions can be aggregated to examine spending patterns.
-
-### Employee performance
-
-Employee-level sales information can be used for structured performance reporting.
-
-### Returns
-
-Returns can be analysed as part of the reporting process rather than being treated as an isolated dataset.
-
-### Regional performance
-
-Provincial reporting provides another dimension for comparing business activity.
-
-This gives the project a business context rather than presenting SQL syntax without an operational question.
+The SQL query is treated as part of the reporting process rather than automatically being treated as the final answer.
 
 ---
 
@@ -94,7 +101,7 @@ This gives the project a business context rather than presenting SQL syntax with
 
 * PostgreSQL 18
 * SQL
-* Relational database design
+* Relational databases
 * SQL joins
 * Aggregate functions
 * `GROUP BY`
@@ -108,9 +115,9 @@ This gives the project a business context rather than presenting SQL syntax with
 
 ## Dataset
 
-The project uses simulated retail data representing a South African retail environment.
+The project uses simulated retail data representing a South African retail business.
 
-The relational dataset includes business entities such as:
+The dataset contains business entities including:
 
 * Stores
 * Products
@@ -120,15 +127,13 @@ The relational dataset includes business entities such as:
 * Returns
 * Sales targets
 
-The data is used for portfolio and learning purposes only.
+The data is used for portfolio and learning purposes.
 
-It does not represent real company, customer or employee information.
+It does not represent real customer information or the operational data of a real company.
 
 ---
 
-## Reporting Questions
-
-The project is organised around practical management-reporting questions.
+## Business Questions
 
 | Business Question                           | SQL Analysis                      | Reporting Purpose                        |
 | ------------------------------------------- | --------------------------------- | ---------------------------------------- |
@@ -137,8 +142,28 @@ The project is organised around practical management-reporting questions.
 | Which employees generate the highest sales? | Join employees to transactions    | Compare sales performance                |
 | Which customers spend the most?             | Aggregate customer transactions   | Understand customer activity             |
 | Which provinces perform best?               | Aggregate revenue by province     | Compare regional performance             |
-| What does returns activity show?            | Analyse return transactions       | Identify areas requiring investigation   |
+| What does returns activity show?            | Analyse return transactions       | Identify areas for investigation         |
 | Are stores meeting sales targets?           | Compare actual sales with targets | Measure performance against expectations |
+
+---
+
+## KPI Thinking
+
+A KPI is only useful when its definition is clear.
+
+For example, a revenue measure may require decisions about:
+
+* Which transactions count?
+* Which reporting period is used?
+* How are returns handled?
+* Are cancelled transactions included?
+* Which date field determines the reporting period?
+* Are duplicate transactions present?
+* What level should the KPI be reported at?
+
+These decisions can affect the meaning of the resulting number.
+
+The project therefore treats KPI definition and validation as part of the reporting workflow.
 
 ---
 
@@ -148,180 +173,112 @@ The reporting queries cover:
 
 * Executive KPI summary
 * Revenue by store
-* Product performance
-* Employee performance
+* Top-selling products
+* Employee sales performance
 * Customer spending
 * Revenue by province
 * Returns analysis
-* Store target performance
+* Store sales-target performance
 
-The analysis uses relational joins and aggregation to move from transaction-level records to reporting-level information.
-
----
-
-## Example Reporting Workflow
-
-### Business Question
-
-**Which stores are performing above or below target?**
-
-### Data
-
-Relevant sales transactions, store information and sales-target information.
-
-### SQL Analysis
-
-Aggregate actual sales and compare them with the corresponding target.
-
-### Reporting Output
-
-A store-level performance comparison.
-
-### Business Interpretation
-
-Identify performance gaps that may require further investigation.
-
-The purpose is not to assume why a store is above or below target.
-
-The SQL result provides evidence for the next business question.
+The SQL uses relational joins, filtering, aggregation and KPI calculations to convert transaction-level information into reporting outputs.
 
 ---
 
-## KPI Definition & Reporting Logic
+## Reporting Investigation
 
-A KPI is only useful when its definition is clear.
+One important reporting scenario is when two apparently valid reports produce different results.
 
-Before comparing revenue or another measure, a reporting analyst needs to understand:
+Instead of immediately deciding that one query is wrong, the analyst should investigate the difference.
 
-* Which transactions are included?
-* Which date field determines the reporting period?
-* How are returns treated?
-* Are cancelled transactions included?
-* Are duplicate transactions possible?
-* Which tables provide the required fields?
-* Could a join duplicate transactions?
-* Are the same definitions being applied consistently?
+Possible investigation areas include:
 
-This project therefore treats **KPI definition and validation as part of reporting**, rather than assuming that a calculated number is automatically meaningful.
+* Reporting date range
+* KPI definition
+* Date fields
+* Returns and cancellations
+* Source records
+* Join conditions
+* Duplicate records
+* Unexpected transactions
+* Filtering assumptions
+* Aggregation logic
 
----
+The objective is to understand:
 
-## Reconciliation & Data Quality Thinking
+**Where did the difference come from?**
 
-A central reporting principle demonstrated by this project is:
+and:
 
-> **Before deciding which number is right, understand why the numbers disagree.**
+**Which result correctly answers the reporting question?**
 
-If two apparently correct reports produced different totals, possible investigation areas include:
-
-* Different date ranges
-* Different KPI definitions
-* Different treatment of returns
-* Different treatment of cancellations
-* Different source tables
-* Join duplication
-* Missing records
-* Duplicate transactions
-* Different filters
-* Different assumptions
-
-This is important because a reporting analyst should be able to investigate a discrepancy rather than simply select the number that looks more reasonable.
+This is an important part of reliable reporting.
 
 ---
 
-## Business Reporting Examples
+## Data Quality & Validation
 
-### Store Performance
-
-**Question:** Which stores generate the highest revenue?
-
-Sales transactions are aggregated by store to create a comparable store-level reporting view.
-
-The result can provide a starting point for investigating differences in:
-
-* Sales volume
-* Customer activity
-* Product mix
-* Target achievement
-* Store-level performance
-
----
-
-### Product Performance
-
-**Question:** Which products contribute most to sales?
-
-Sales are aggregated by product to identify differences in product contribution.
-
-The result can support further questions around:
-
-* Product mix
-* Store performance
-* Regional demand
-* Sales concentration
-
----
-
-### Sales Target Performance
-
-**Question:** Are stores achieving their sales targets?
-
-Actual sales are compared with the available target information.
-
-This provides a more useful performance measure than revenue alone because it considers actual performance relative to an expected level.
-
----
-
-### Returns
-
-**Question:** What does returns activity show?
-
-Return activity is analysed alongside relevant retail transactions.
-
-The purpose is not to assume that returns are automatically negative.
-
-Instead, the analysis provides an evidence base for further investigation into return patterns and their relationship with reported sales performance.
-
----
-
-## Data Quality Considerations
-
-Reliable reporting depends on the quality and structure of the underlying data.
-
-This project considers:
+The project considers:
 
 * Primary and foreign-key relationships
-* Correct table relationships
-* Appropriate SQL joins
-* Consistent reporting definitions
-* Accurate aggregation
-* Transaction-level duplication risks
+* Correct joins
+* Duplicate or unexpected records
+* Consistent values
 * Appropriate filtering
-* KPI validation
-* Returns and exclusions
-* Consistency of reporting logic
+* Accurate aggregation
+* Date handling
+* Return handling
+* KPI definitions
+* Validation of calculated measures
 
-A production reporting environment would require additional controls based on the organisation, source systems, governance requirements and reporting standards.
+The project does not claim production-level data governance or enterprise controls.
+
+It demonstrates awareness of the checks that can affect reporting reliability.
 
 ---
 
-## Key Portfolio Evidence
+## Example Reporting Question
 
-This project provides practical portfolio evidence of:
+### Are stores meeting their sales targets?
 
-* PostgreSQL
-* SQL querying
-* Relational data analysis
-* SQL joins
-* Aggregation
-* KPI calculations
-* Business-question translation
-* Data-quality awareness
-* Reporting validation
-* Reconciliation thinking
-* Business-focused interpretation
+**Business question**
 
-It is deliberately presented as a portfolio project and does not claim professional enterprise reporting experience.
+Which stores are performing above or below their expected sales target?
+
+**SQL approach**
+
+Actual sales are aggregated at store level and compared with the corresponding target information.
+
+**Reporting output**
+
+The resulting comparison provides a structured view of performance relative to target.
+
+**Business meaning**
+
+A target comparison can provide more context than revenue alone because performance is considered against an expected benchmark.
+
+**Next questions**
+
+* Which stores have the largest target gaps?
+* Are the differences persistent?
+* Could product mix or customer activity explain the difference?
+* Are the underlying sales and target records complete?
+
+---
+
+## What the Project Demonstrates
+
+This project provides evidence of my ability to:
+
+* Work with PostgreSQL
+* Write SQL for business questions
+* Join relational tables
+* Aggregate transactional data
+* Calculate reporting measures
+* Think about KPI definitions
+* Consider data quality
+* Validate reporting logic
+* Compare business performance
+* Communicate reporting observations without overstating what simulated data proves
 
 ---
 
@@ -346,64 +303,102 @@ RetailMart-Executive-Reporting-SQL-Project
 
 1. Install PostgreSQL.
 2. Create a PostgreSQL database for the project.
-3. Run `SQL/01_create_tables.sql`.
-4. Run `SQL/02_insert_data.sql`.
-5. Run `SQL/03_reporting_queries.sql`.
-6. Review the query outputs.
-7. Compare the results against the business questions and reporting definitions.
+3. Run:
+
+```text
+SQL/01_create_tables.sql
+```
+
+4. Load the project data using:
+
+```text
+SQL/02_insert_data.sql
+```
+
+5. Run the reporting analysis using:
+
+```text
+SQL/03_reporting_queries.sql
+```
+
+6. Review the results against the business questions and KPI definitions.
 
 ---
 
-## What This Project Demonstrates
+## How to Review This Project
 
-I am using this project to demonstrate that I can:
+For a recruiter, hiring manager or analyst reviewing the repository, the recommended sequence is:
 
-* Work with PostgreSQL
-* Query relational business data
-* Join related tables
-* Aggregate transactional information
-* Calculate reporting KPIs
-* Translate business questions into SQL
-* Think about data quality before reporting
-* Validate reporting logic
-* Investigate differences between reported numbers
-* Explain what a SQL result means from a business-reporting perspective
+1. Read this README.
+2. Review the database creation script.
+3. Review the inserted data.
+4. Review the reporting queries.
+5. Consider how the SQL connects to the business questions.
+6. Review the validation and data-quality considerations.
 
----
+The strongest evidence is the connection between:
 
-## Career Relevance
-
-This project is part of my portfolio as I build practical evidence toward **Junior / Entry-Level Reporting Analyst opportunities in Johannesburg, Gauteng and credible remote opportunities across South Africa**.
-
-My current technical focus is PostgreSQL and SQL.
-
-I am deliberately building evidence around the reporting capabilities that sit around SQL:
-
-**Business Question → Data → SQL → Validation → Reporting → Interpretation**
-
-The project demonstrates practical learning and potential through portfolio work. It does not claim professional reporting experience.
+**Business Question → SQL → KPI → Validation → Reporting Meaning**
 
 ---
 
 ## Portfolio Position
 
-This is the **flagship reporting project** in my SQL portfolio.
+This is the **flagship management-reporting project** in my SQL portfolio.
 
-It is complemented by:
+It represents the retail/FMCG side of my industry rotation and demonstrates how SQL can be applied to:
 
-* **Insurance Claims Risk Analytics SQL Project** — insurance claims, risk and KPI reporting
-* **Retail Sales Analytics ETL Data Pipeline Project** — data preparation and transformation for reporting
-* **SQL Data Analytics Fundamentals for Business Reporting** — foundational SQL and relational-data skills
+* Sales reporting
+* KPI reporting
+* Store performance
+* Product performance
+* Returns
+* Target analysis
+* Management reporting
 
-Together, the projects show progression from:
+It complements the insurance, ETL and SQL-foundation projects in this portfolio.
 
-**SQL Fundamentals → Data Preparation → Applied Industry Reporting → Business-Focused Analysis**
+---
+
+## Career Relevance
+
+This project forms part of my portfolio as I build practical evidence toward:
+
+* Junior Reporting Analyst
+* Reporting Analyst
+* Junior Data Analyst
+* Data Analyst
+* SQL-focused analyst opportunities
+
+My primary target is **Johannesburg/Gauteng**, with credible remote opportunities across South Africa as a secondary target.
+
+The project is portfolio evidence of skills I am developing; it does not represent professional employment experience.
+
+---
+
+## Limitations
+
+This is a simulated portfolio project.
+
+It does not represent:
+
+* Production reporting
+* Enterprise data governance
+* Professional employment experience
+* Production data pipelines
+* Enterprise BI platforms
+* Real company performance
+* Real customer information
+
+The numerical results should therefore be interpreted within the context of the simulated dataset.
 
 ---
 
 ## About
 
-I am building practical SQL projects focused on PostgreSQL, business reporting, KPI analysis and data quality as I work toward an entry-level Reporting Analyst career.
+I am building practical PostgreSQL and SQL projects focused on business reporting, KPI analysis, data quality and analytical thinking.
 
-My goal is to develop the ability to move beyond writing queries and understand how data can support clear, reliable business reporting.
+My current focus is developing strong SQL skills and learning how to connect technical analysis with practical reporting questions as I work toward an entry-level Reporting Analyst career.
+
+---
 
