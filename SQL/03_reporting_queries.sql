@@ -430,6 +430,77 @@ SELECT
 
 
 -- ==========================================================
+-- QUERY 16: NET SALES AND TRANSACTION-BASED RETURN RATE
+-- Business Question:
+-- What are gross sales, refunds, net sales after refunds,
+-- and the percentage of sales transactions returned?
+-- Reporting Purpose:
+-- Adds return measures to the sales reporting picture.
+-- ==========================================================
+
+WITH sales_summary AS (
+    SELECT
+        COUNT(*) AS total_transactions,
+        COALESCE(SUM(total_amount), 0) AS gross_sales
+    FROM sales
+),
+returns_summary AS (
+    SELECT
+        COUNT(*) AS total_return_records,
+        COUNT(DISTINCT sale_id) AS distinct_returned_transactions,
+        COALESCE(SUM(refund_amount), 0) AS total_refunds
+    FROM returns
+)
+
+	SELECT
+    ss.total_transactions,
+    ss.gross_sales,
+    rs.total_return_records,
+    rs.distinct_returned_transactions,
+    rs.total_refunds,
+    ss.gross_sales - rs.total_refunds
+        AS net_sales_after_recorded_refunds,
+    ROUND(
+        100.0 * rs.distinct_returned_transactions
+        / NULLIF(ss.total_transactions, 0),
+        2
+    ) AS transaction_based_return_rate_percent
+FROM sales_summary AS ss
+CROSS JOIN returns_summary AS rs;
+
+
+-- ==========================================================
+-- QUERY 17: STORE SALES RANKING
+-- Business Question:
+-- How do stores rank by recorded gross sales?
+-- Reporting Purpose:
+-- Compare stores using a window function.
+-- ==========================================================
+
+WITH store_sales AS (
+    SELECT
+        st.store_id,
+        st.store_name,
+        COALESCE(SUM(s.total_amount), 0) AS gross_sales
+    FROM stores AS st
+    LEFT JOIN sales AS s
+        ON s.store_id = st.store_id
+    GROUP BY
+        st.store_id,
+        st.store_name
+)
+SELECT
+    store_id,
+    store_name,
+    gross_sales,
+    RANK() OVER (
+        ORDER BY gross_sales DESC
+    ) AS sales_rank
+FROM store_sales
+ORDER BY sales_rank, store_name;
+
+
+-- ==========================================================
 -- END OF REPORTING QUERIES
 -- ==========================================================
 
