@@ -100,17 +100,69 @@ Database constraints support data integrity but do not, by themselves, prove tha
 
 ## Reporting Findings
 
-The following findings must be populated from the actual PostgreSQL query outputs before being presented as verified results.
+The following findings are calculated from the supplied RetailMart sample data and reporting SQL. The dataset is simulated and contains sales transactions dated 1–10 September 2025. These figures should be confirmed against the actual PostgreSQL query outputs before being presented as independently verified database results.
 
-| Measure                          | Verified result                                |
-|----------------------------------|------------------------------------------------|
-| Recorded sales transactions      | Run Query 01                                   |
-| Gross sales                      | Run Query 01                                   |
-| Average transaction value        | Run Query 01                                   |
-| Total recorded refunds           | Run Query 11                                   |
-| Net sales after recorded refunds | Run the additional net-sales query             |
-| Store target comparison          | Run Query 13 and state the exact dates covered |
----
+|             Measure              |                                   Finding from supplied sample data                                                                               | Validation source |
+|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|---|
+| Recorded sales transactions      | 20 transactions                                                                                                                                   | Query 01 |
+| Gross sales                      | R1,867.57                                                                                                                                         | Query 01 |
+| Average transaction value        | R93.38                                                                                                                                            | Query 01 |
+| Total recorded refunds           | R434.91 across 5 return records                                                                                                                   | Query 11 |
+| Net sales after recorded refunds | R1,432.66, calculated as gross sales less recorded refunds                                                                                        | Query 16 |
+| Transaction-based return rate    | 25.00%, based on 5 distinct returned transactions out of 20 sales transactions                                                                    | Query 16 |
+| Store target comparison          | September 2025 targets compared with sales recorded from 1–10 September 2025                                                                      | Query 13 |
+| Employee sales attribution       | Employee-store mismatches are present in the supplied sample data and require investigation | Query 07 and source data |
+| Executive KPI summary            | 20 transactions, R1,867.57 gross sales, R93.38 average transaction value, 20 customers, 15 products, 10 stores, 10 employees and 5 return records | Query 15, reconciled with Queries 01 and 11 |
+
+### Reporting validation notes
+
+**Gross sales and transaction values**
+
+Query 01 calculates transaction count, total recorded sales value and average transaction value from the `sales` table. The supplied sample data totals R1,867.57 across 20 transactions, giving an average transaction value of R93.38 after rounding.
+
+**Returns and net sales**
+
+Query 11 calculates the total recorded refund value from the `returns` table. The five supplied return records total R434.91. Query 16 subtracts those recorded refunds from gross sales to calculate net sales after recorded refunds of R1,432.66.
+
+This is a calculation based on recorded refund amounts, not a claim that all returns have been fully processed or that the result represents accounting-recognised net revenue.
+
+**Transaction-based return rate**
+
+Query 16 calculates the percentage of sales transactions associated with at least one return record. In the supplied data, five distinct transactions have return records out of 20 total sales transactions, producing a rate of 25.00%.
+
+This is a transaction-based measure, not the percentage of items returned or the percentage of sales value refunded.
+
+**Store sales target comparison**
+
+Query 13 compares store sales recorded during September 2025 with monthly targets dated September 2025. Although the targets cover the month, the supplied sales records cover only 1–10 September 2025.
+
+Consequently, the actual-sales figures represent a partial-month period and should not be presented as final September results or used to claim that a store met or missed its full-month target.
+
+**Employee sales attribution**
+
+Query 07 joins sales to employees and reports each employee under the store assigned to that employee in the `employees` table. The supplied data includes sales where `sales.store_id` differs from the assigned `employees.store_id`.
+
+These mismatches should be investigated before employee-level or store-level employee performance findings are treated as reliable. The query's current store label reflects the employee's assigned store, not necessarily the store where the transaction occurred.
+
+**Executive KPI reconciliation**
+
+Query 15 repeats the transaction count, total sales value, average transaction value, return count and refund total reported by Queries 01 and 11. The overlapping measures should reconcile when the queries run against the same unchanged database state.
+
+### Calendar coverage validation
+
+Query 09 uses the `calendar` table to generate monthly reporting periods for 2025 and left-joins sales to those periods. The supplied calendar load covers 1 January to 31 December 2025, while the supplied sales data covers 1–10 September 2025.
+
+Expected monthly report structure:
+
+| Reporting period      | Expected transactions | Expected gross sales |
+|-----------------------|----------------------:|---------------------:|
+| January–August 2025   | 0 per month           | R0.00 per month      |
+| September 2025        | 20                    | R1,867.57            |
+| October–December 2025 | 0 per month           | R0.00 per month      |
+
+If the calendar contains all 12 months and the query executes successfully, Query 09 should return 12 rows, retaining the months without sales. The September average transaction value should be R93.38; the query displays R0.00 for months without transactions because of its `COALESCE` expression.
+
+Validate the calendar coverage and monthly report directly in PostgreSQL before treating these expected results as confirmed query outputs.
 
 ### Interpretation
 
