@@ -220,17 +220,44 @@ ORDER BY sale_date;
 -- How does sales performance change over time?
 --
 -- Reporting Purpose:
--- Supports management trend reporting.
+-- Supports management trend reporting and retains calendar
+-- months with no sales records.
 -- ==========================================================
 
+WITH reporting_months AS (
+    SELECT DISTINCT
+        DATE_TRUNC('month', calendar_date)::DATE AS sales_month
+    FROM calendar
+    WHERE calendar_date >= DATE '2025-01-01'
+      AND calendar_date < DATE '2026-01-01'
+)
+
 SELECT
-    DATE_TRUNC('month', sale_date)::DATE AS sales_month,
-    COUNT(*) AS total_transactions,
-    SUM(total_amount) AS total_revenue,
-    ROUND(AVG(total_amount), 2) AS average_transaction_value
-FROM sales
-GROUP BY DATE_TRUNC('month', sale_date)
-ORDER BY sales_month;
+    rm.sales_month,
+    COUNT(s.sale_id) AS total_transactions,
+    COALESCE(SUM(s.total_amount), 0) AS gross_sales,
+    ROUND(
+        COALESCE(AVG(s.total_amount), 0),
+        2
+    ) AS average_transaction_value
+FROM reporting_months AS rm
+LEFT JOIN sales AS s
+    ON s.sale_date >= rm.sales_month
+   AND s.sale_date < rm.sales_month + INTERVAL '1 month'
+GROUP BY rm.sales_month
+ORDER BY rm.sales_month;
+
+Validate query in PostgreSQL: 
+	
+-- Validate calendar coverage for the 2025 monthly report
+
+SELECT
+    COUNT(DISTINCT DATE_TRUNC('month', calendar_date)) AS months_available,
+    MIN(calendar_date) AS first_calendar_date,
+    MAX(calendar_date) AS last_calendar_date
+FROM calendar
+WHERE calendar_date >= DATE '2025-01-01'
+  AND calendar_date < DATE '2026-01-01';
 
 
 -- ==========================================================
