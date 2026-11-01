@@ -1,3 +1,4 @@
+
 -- ==========================================================
 -- RETAILMART EXECUTIVE REPORTING SQL PROJECT
 -- PostgreSQL Database Schema
@@ -6,6 +7,14 @@
 -- Create the relational database structure used for
 -- retail sales, customer, product, store, employee,
 -- returns, targets and calendar reporting.
+--
+-- Design considerations:
+-- - Primary keys identify individual records.
+-- - Foreign keys maintain referential integrity.
+-- - CHECK constraints enforce basic data validity.
+-- - UNIQUE constraints prevent duplicate business keys.
+-- - Indexes support commonly used reporting joins
+--   and date filtering.
 -- ==========================================================
 
 
@@ -74,6 +83,7 @@ CREATE TABLE employees (
     salary NUMERIC(10,2)
         CHECK (salary >= 0),
     store_id INT NOT NULL,
+
     FOREIGN KEY (store_id)
         REFERENCES stores(store_id)
 );
@@ -134,6 +144,10 @@ CREATE TABLE returns (
 -- TARGETS
 -- Stores monthly sales targets for each store.
 -- Supports target-versus-actual reporting.
+--
+-- Business rule:
+-- Each store can have only one sales target
+-- for a particular reporting month.
 -- ==========================================================
 
 CREATE TABLE targets (
@@ -144,7 +158,10 @@ CREATE TABLE targets (
         CHECK (sales_target >= 0),
 
     FOREIGN KEY (store_id)
-        REFERENCES stores(store_id)
+        REFERENCES stores(store_id),
+
+    CONSTRAINT uq_targets_store_month
+        UNIQUE (store_id, target_month)
 );
 
 
