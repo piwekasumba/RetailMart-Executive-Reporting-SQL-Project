@@ -1,158 +1,209 @@
 # RetailMart Executive Reporting SQL Project
+---
+A self-directed PostgreSQL portfolio project demonstrating retail business reporting, KPI analysis, SQL querying, data-quality awareness and reporting validation using simulated South African retail data.
 
-A PostgreSQL portfolio project focused on retail reporting, KPI analysis, data quality, validation and management-reporting SQL using simulated South African retail data.
-
-The project demonstrates the reporting process:
+The project follows a structured reporting process:
 
 **Business Question → KPI Definition → SQL → Validation → Reporting Output → Interpretation**
 ---
+## Project Overview
 
-## Project Objective
+RetailMart is a simulated retail business database created to practise answering practical business reporting questions using PostgreSQL.
 
-The objective is to build a relational retail database and use PostgreSQL to answer practical reporting questions involving sales, stores, products, customers, employees, returns and sales targets.
+The project brings together sales, customers, products, stores, employees, returns and sales targets to demonstrate how relational data can be used to produce management-focused reporting.
 
-This is a self-directed portfolio project using simulated data. It does not represent professional employment or the performance of a real company.
+The focus is not only on calculating figures, but also on defining what each KPI measures, checking the underlying data and recognising when reporting results require further investigation.
+
+This is independent portfolio work using simulated data. It does not represent professional employment, a real company's operations or actual business performance.
 ---
+## Project Objectives
 
+- Build a relational retail database using PostgreSQL.
+- Write SQL queries to answer practical business questions.
+- Calculate and interpret retail reporting KPIs.
+- Analyse sales across stores, provinces, products and customers.
+- Examine recorded returns and refund values.
+- Compare recorded sales with monthly store targets.
+- Apply data-quality checks and reporting validation.
+- Identify limitations that affect the interpretation of reporting results.
+---
 ## Tools and Technologies
 
-- PostgreSQL 18
-- SQL and relational databases
-- Joins, filtering, aggregation and subqueries
-- KPI calculations
-- Data-quality checks and reporting validation
+- **Database:** PostgreSQL 18
+- **Query language:** SQL
+- **Database management:** pgAdmin 4
+- **SQL techniques:** Joins, filtering, aggregation, subqueries and KPI calculations
+- **Reporting concepts:** Retail performance reporting, target comparisons and executive summaries
+- **Validation concepts:** Relational integrity, record-count checks, reconciliation and reporting-period checks
 ---
-
 ## Dataset
 
-The database contains eight tables:
+The database contains eight relational tables:
 
-- customers
-- products
-- stores
-- employees
-- sales
-- returns
-- targets
-- calendar
-
-The sample data represents 20 customers, 15 products, 10 stores, 10 employees, 20 sales transactions, five returns and 10 monthly store targets.
-
-The data is simulated and intended for learning and portfolio demonstration.
+| Table | Purpose |
+|---|---|
+| customers | Customer information |
+| products | Product information |
+| stores | Store and location information |
+| employees | Employee information |
+| sales | Recorded sales transactions |
+| returns | Recorded returns and refund values |
+| targets | Monthly store sales targets |
+| calendar | Reporting dates for 2025 |
 ---
+### Sample data
 
-## Reporting Queries
+| Data category | Records |
+|---|---:|
+| Customers | 20 |
+| Products | 15 |
+| Stores | 10 |
+| Employees | 10 |
+| Sales transactions | 20 |
+| Returns | 5 |
+| Monthly store targets | 10 |
+| Calendar coverage | 1 January–31 December 2025 |
 
-The file - SQL/03_reporting_queries.sql - contains 15 numbered SQL queries.
-
-|Query|        Analysis                 |           Reporting purpose                                     |
-|----|------------------------------------|-----------------------------------------------------------------|
-| 01 | Executive sales summary            | Summarise transaction count, gross sales and transaction values |
-| 02 | Revenue by store                   | Compare store sales                                             |
-| 03 | Revenue by province                | Compare provincial sales                                        |
-| 04 | Product performance                | Compare product sales and units sold                            |
-| 05 | Revenue by product category        | Compare category contribution                                   |
-| 06 | Top customers by spend             | Review customer transaction value                               |
-| 07 | Employee sales performance         | Summarise sales by employee                                     |
-| 08 | Daily sales report                 | Review daily transaction activity                               |
-| 09 | Monthly sales report               | Summarise sales by calendar month                               |
-| 10 | Average transaction value by store | Compare average transaction values                              |
-| 11 | Returns summary                    | Summarise returns and refunds                                   |
-| 12 | Return performance by product      | Compare refund values by product                                |
-| 13 | Store sales target performance     | Compare recorded sales with monthly targets                     |
-| 14 | Top five sales transactions        | Identify the highest-value transactions                         |
-| 15 | Executive KPI summary              | Consolidate key business counts and measures                    |
+All records are simulated and intended for learning and portfolio demonstration.
 ---
+## SQL Reporting Queries
 
+The main reporting script is:
+
+`SQL/03_reporting_queries.sql`
+
+It contains 15 numbered core reporting queries, with additional reporting queries extending the analysis.
+
+| Query | Analysis | Reporting purpose |
+|---|---|---|
+| 01 | Executive sales summary | Summarise transaction count, gross sales and transaction values |
+| 02 | Revenue by store | Compare recorded sales across stores |
+| 03 | Revenue by province | Examine sales across provinces |
+| 04 | Product performance | Compare product sales and units sold |
+| 05 | Revenue by product category | Examine category contribution |
+| 06 | Top customers by spend | Identify customers with the highest recorded spend |
+| 07 | Employee sales performance | Summarise sales attributed to employees |
+| 08 | Daily sales report | Review daily transaction activity |
+| 09 | Monthly sales report | Summarise sales by calendar month |
+| 10 | Average transaction value by store | Compare average transaction values |
+| 11 | Returns summary | Summarise recorded returns and refunds |
+| 12 | Return performance by product | Compare refund values by product |
+| 13 | Store sales target performance | Compare recorded sales with monthly targets |
+| 14 | Top five sales transactions | Identify the highest-value transactions |
+| 15 | Executive KPI summary | Consolidate key business counts and measures |
+
+Additional reporting queries extend the analysis to include net sales after recorded refunds and transaction-based return-rate calculations.
+---
 ## KPI Definitions
 
-The following definitions apply to the existing sample queries unless a report explicitly states otherwise.
+The following definitions establish the reporting rules used in the project.
 
-- Gross sales: Sum of sales.total_amount for the selected transactions before deducting refunds.
-- Transaction count: Count of sales records using COUNT(sale_id). Each row represents one recorded transaction in this dataset.
-- Average transaction value: Gross sales divided by the number of recorded sales transactions.
-- Total refund value: Sum of returns.refund_amount for the selected return records.
-- Net sales after recorded refunds: Gross sales less recorded refund amounts, with the reporting period and refund inclusion rules stated explicitly.
-- Transaction-based return rate: Number of distinct sales transactions with at least one recorded return divided by the number of sales transactions in the defined sales cohort, multiplied by 100.
-- Target achievement percentage: Recorded sales divided by the corresponding sales target, multiplied by 100.
-- Variance to target: Recorded sales less the corresponding target amount.
+| KPI | Definition |
+|---|---|
+| Gross sales | Sum of `sales.total_amount` before deducting recorded refunds |
+| Transaction count | Count of sales records using `COUNT(sale_id)` |
+| Average transaction value | Gross sales divided by the number of recorded sales transactions |
+| Total refund value | Sum of `returns.refund_amount` |
+| Net sales after recorded refunds | Gross sales less recorded refund amounts, subject to the stated reporting-period and inclusion rules |
+| Transaction-based return rate | Distinct sales transactions with at least one recorded return divided by the defined sales transaction cohort, multiplied by 100 |
+| Target achievement percentage | Recorded sales divided by the corresponding sales target, multiplied by 100 |
+| Variance to target | Recorded sales less the corresponding target amount |
 
-A return rate based on returned transactions is different from a return rate based on returned units or refund value. The chosen definition must be stated in the report.
+A transaction-based return rate is not the same as a returned-unit rate or a refund-value percentage. The reporting definition must be clear before interpreting the result.
 ---
+## Reporting Findings
 
-## Data Quality and Validation
+The following figures are calculated from the supplied simulated sample data. They are presented as indicative portfolio findings and should be confirmed against actual PostgreSQL execution outputs before being treated as independently verified database results.
 
-The project includes relational constraints, foreign keys, checks, unique email values and indexes for common joins and date filtering.
+| Measure | Finding |
+|---|---:|
+| Recorded sales transactions | 20 |
+| Gross sales | R1,867.57 |
+| Average transaction value | R93.38 |
+| Recorded refund value | R434.91 |
+| Number of return records | 5 |
+| Net sales after recorded refunds | R1,432.66 |
+| Transaction-based return rate | 25.00% |
+| Customer records | 20 |
+| Product records | 15 |
+| Store records | 10 |
+| Employee records | 10 |
+---
+### 1. Sales reporting
 
-Reporting validation should also consider:
+The supplied sales data contains 20 transactions with total recorded gross sales of R1,867.57.
+
+The resulting average transaction value is R93.38 after rounding.
+
+These measures provide a basic summary of recorded sales activity.
+---
+### 2. Returns and refunds
+
+The five supplied return records have a combined recorded refund value of R434.91.
+
+Subtracting this amount from gross sales produces calculated net sales after recorded refunds of R1,432.66.
+
+This is a calculation using the supplied refund records. It does not establish that every return has been fully processed or that the result represents accounting-recognised net revenue.
+---
+### 3. Transaction-based return rate
+
+Five distinct sales transactions have at least one associated return record out of 20 recorded sales transactions.
+
+The calculation is:
+
+`(5 / 20) × 100 = 25.00%`
+
+This measures the proportion of transactions associated with recorded returns. It does not measure the proportion of individual units returned or the percentage of sales value refunded.
+---
+### 4. Store sales target comparison
+
+The project compares September 2025 store targets with the supplied sales transactions.
+
+However, the available sales records cover only 1–10 September 2025, while the targets represent the full month.
+
+The comparison therefore represents partial-month recorded sales against full-month targets. It must not be presented as final September performance or as evidence that a store met or missed its full-month target.
+---
+### 5. Employee sales attribution
+
+The supplied data contains instances where `sales.store_id` differs from the store assigned to an employee in the `employees` table.
+
+The employee reporting query uses the employee's assigned store when presenting employee sales.
+
+These differences require investigation before employee-level or employee-associated store performance is interpreted as reliable. The employee's assigned store should not automatically be treated as the location where a transaction occurred.
+---
+### 6. Executive KPI reconciliation
+
+Query 15 consolidates key measures that overlap with the executive sales summary and returns summary.
+
+The overlapping transaction counts, sales totals, average transaction values, return counts and refund totals should reconcile when the queries run against the same unchanged database state.
+---
+## Data Quality and Reporting Validation
+
+The database includes relational constraints, foreign keys, checks, unique email values and indexes intended to support data integrity and common reporting operations.
+
+The reporting process also considers:
 
 - Whether sales totals agree with transaction-level calculations.
 - Whether joins unintentionally multiply records.
+- Whether record counts change unexpectedly after joins.
 - Whether duplicate or unexpected records exist.
-- Whether refunds are included consistently.
+- Whether missing values affect KPI calculations.
+- Whether refund values are included consistently.
 - Whether the sales period matches the target period.
-- Whether missing values affect a calculation.
-- Whether the output answers the stated business question.
+- Whether employee and store relationships require investigation.
+- Whether reporting outputs answer the original business question.
 
-Database constraints support data integrity but do not, by themselves, prove that every reporting result is correct.
+Database constraints help protect data integrity, but they do not independently prove that every reporting calculation is correct.
 
+Validation must also consider the logic, relationships, reporting grain and business definitions behind each result.
 ---
+## Calendar Coverage and Reporting Periods
 
-## Reporting Findings
+The calendar table is designed to cover 1 January to 31 December 2025.
 
-The following findings are calculated from the supplied RetailMart sample data and reporting SQL. The dataset is simulated and contains sales transactions dated 1–10 September 2025. These figures should be confirmed against the actual PostgreSQL query outputs before being presented as independently verified database results.
+The supplied sales transactions cover only 1–10 September 2025.
 
-|             Measure              |                                   Finding from supplied sample data                                                                               | Validation source |
-|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|---|
-| Recorded sales transactions      | 20 transactions                                                                                                                                   | Query 01 |
-| Gross sales                      | R1,867.57                                                                                                                                         | Query 01 |
-| Average transaction value        | R93.38                                                                                                                                            | Query 01 |
-| Total recorded refunds           | R434.91 across 5 return records                                                                                                                   | Query 11 |
-| Net sales after recorded refunds | R1,432.66, calculated as gross sales less recorded refunds                                                                                        | Query 16 |
-| Transaction-based return rate    | 25.00%, based on 5 distinct returned transactions out of 20 sales transactions                                                                    | Query 16 |
-| Store target comparison          | September 2025 targets compared with sales recorded from 1–10 September 2025                                                                      | Query 13 |
-| Employee sales attribution       | Employee-store mismatches are present in the supplied sample data and require investigation | Query 07 and source data |
-| Executive KPI summary            | 20 transactions, R1,867.57 gross sales, R93.38 average transaction value, 20 customers, 15 products, 10 stores, 10 employees and 5 return records | Query 15, reconciled with Queries 01 and 11 |
-
-### Reporting validation notes
-
-**Gross sales and transaction values**
-
-Query 01 calculates transaction count, total recorded sales value and average transaction value from the `sales` table. The supplied sample data totals R1,867.57 across 20 transactions, giving an average transaction value of R93.38 after rounding.
-
-**Returns and net sales**
-
-Query 11 calculates the total recorded refund value from the `returns` table. The five supplied return records total R434.91. Query 16 subtracts those recorded refunds from gross sales to calculate net sales after recorded refunds of R1,432.66.
-
-This is a calculation based on recorded refund amounts, not a claim that all returns have been fully processed or that the result represents accounting-recognised net revenue.
-
-**Transaction-based return rate**
-
-Query 16 calculates the percentage of sales transactions associated with at least one return record. In the supplied data, five distinct transactions have return records out of 20 total sales transactions, producing a rate of 25.00%.
-
-This is a transaction-based measure, not the percentage of items returned or the percentage of sales value refunded.
-
-**Store sales target comparison**
-
-Query 13 compares store sales recorded during September 2025 with monthly targets dated September 2025. Although the targets cover the month, the supplied sales records cover only 1–10 September 2025.
-
-Consequently, the actual-sales figures represent a partial-month period and should not be presented as final September results or used to claim that a store met or missed its full-month target.
-
-**Employee sales attribution**
-
-Query 07 joins sales to employees and reports each employee under the store assigned to that employee in the `employees` table. The supplied data includes sales where `sales.store_id` differs from the assigned `employees.store_id`.
-
-These mismatches should be investigated before employee-level or store-level employee performance findings are treated as reliable. The query's current store label reflects the employee's assigned store, not necessarily the store where the transaction occurred.
-
-**Executive KPI reconciliation**
-
-Query 15 repeats the transaction count, total sales value, average transaction value, return count and refund total reported by Queries 01 and 11. The overlapping measures should reconcile when the queries run against the same unchanged database state.
-
-### Calendar coverage validation
-
-Query 09 uses the `calendar` table to generate monthly reporting periods for 2025 and left-joins sales to those periods. The supplied calendar load covers 1 January to 31 December 2025, while the supplied sales data covers 1–10 September 2025.
-
-Expected monthly report structure:
+The expected monthly reporting structure is:
 
 | Reporting period      | Expected transactions | Expected gross sales |
 |-----------------------|----------------------:|---------------------:|
@@ -160,20 +211,14 @@ Expected monthly report structure:
 | September 2025        | 20                    | R1,867.57            |
 | October–December 2025 | 0 per month           | R0.00 per month      |
 
-If the calendar contains all 12 months and the query executes successfully, Query 09 should return 12 rows, retaining the months without sales. The September average transaction value should be R93.38; the query displays R0.00 for months without transactions because of its `COALESCE` expression.
+Query 09 uses the calendar table to support monthly reporting, including months without recorded sales.
 
-Validate the calendar coverage and monthly report directly in PostgreSQL before treating these expected results as confirmed query outputs.
+If the calendar contains all 12 months and the query executes successfully, the expected output is 12 monthly rows.
 
-### Interpretation
+The expected results should be confirmed against PostgreSQL execution outputs before being treated as verified.
 
-The sample sales transactions cover 1–10 September 2025, while the store targets are monthly targets for September 2025.
-
-Consequently, the target comparison must not be described as a final full-month performance result. The available sales records cover only the first ten days of September.
-
-The dataset contains only one month of sales. A month-over-month trend or ranking over multiple months would require additional monthly sales data before meaningful conclusions could be drawn.
-
+Because the supplied sales data covers only one month, the project does not establish a meaningful month-over-month sales trend.
 ---
-
 ## Project Structure
 
 ```text
@@ -184,56 +229,67 @@ RetailMart-Executive-Reporting-SQL-Project/
 │   ├── 02_insert_data.sql
 │   └── 03_reporting_queries.sql
 └── Images/
-
 ```
+---
+## How to Run the Project
 
-## How to Run
+Run the SQL scripts in the following order using a fresh PostgreSQL database:
 
 1. Create a PostgreSQL database for the project.
-2. Run - SQL/01_create_tables.sql.
-3. Run - SQL/02_insert_data.sql.
-4. Run - SQL/03_reporting_queries.sql.
-5. Review each numbered query and compare its output with the KPI definitions.
-6. Run the additional reporting queries after the existing 15 queries.
-7. Record actual outputs and validate the results before completing the findings section.
+2. Execute `SQL/01_create_tables.sql` to create the relational tables and database structures.
+3. Execute `SQL/02_insert_data.sql` to insert the simulated sample records.
+4. Execute `SQL/03_reporting_queries.sql` to run the reporting queries.
+5. Review the numbered reporting queries and their outputs.
+6. Compare calculated measures with the documented KPI definitions.
+7. Check reporting totals, joins, record counts and reporting periods.
+8. Confirm the findings against the actual query outputs.
 
-Run the scripts in the stated order in a fresh database.
-
+The reporting queries depend on the database structures and sample data being created first.
 ---
-
 ## What This Project Demonstrates
 
-- Writing SQL to answer business questions.
-- Joining and aggregating relational data.
-- Calculating and interpreting reporting measures.
-- Comparing store and product performance.
-- Analysing recorded returns and sales targets.
-- Considering data quality, date ranges and KPI definitions.
-- Recognising the difference between a calculated result and a result that is ready to interpret.
+This project provides practical evidence of learning and application in:
+
+- PostgreSQL database querying.
+- Relational data analysis using SQL joins.
+- Filtering, grouping and aggregation.
+- Business-focused reporting questions.
+- Retail KPI definitions and calculations.
+- Sales, product, customer and store reporting.
+- Returns and refund analysis.
+- Sales target comparisons.
+- Data-quality awareness and reporting validation.
+- Careful interpretation of reporting results and limitations.
 ---
+## Project Limitations
 
-## Limitations
+This is a self-directed portfolio project using simulated data.
 
-This is a simulated portfolio project. It does not demonstrate production reporting, enterprise data governance, professional employment experience or real company performance.
+It does not demonstrate:
 
-The results are limited by the records, dates and business rules represented in the sample data.
+- Professional analyst employment experience.
+- Production database or enterprise reporting operations.
+- Real company performance or financial results.
+- Enterprise data governance.
+- A multi-month historical sales trend.
+- Independently verified production reporting outcomes.
+
+The quality and interpretation of the findings are limited by the available sample records, reporting periods and defined business rules.
 ---
-
 ## Career Relevance
 
-This project supports my development toward entry-level opportunities in:
+This project supports my development toward entry-level opportunities such as:
 
-- Junior Reporting Analyst
-- Reporting Analyst
-- Junior Data Analyst
-- SQL-focused reporting and data-quality roles
+- Junior Reporting Analyst.
+- Junior Data Analyst.
+- SQL Reporting Analyst.
+- Management Information (MI) Reporting Analyst.
+- Data Quality and Reporting roles.
 
-My focus is on SQL, PostgreSQL, KPI reporting, validation and business reporting, with Johannesburg/Gauteng as my primary job market and credible South African remote opportunities as a secondary target.
-
+The project demonstrates my developing ability to use PostgreSQL and SQL to structure reporting questions, calculate business measures, review data relationships and consider whether results are suitable for interpretation.
 ---
-
 ## About
 
-I am developing practical SQL and PostgreSQL skills through self-directed projects focused on business reporting, KPI analysis and data quality. This project is evidence of my learning and portfolio work, not professional employment experience.
+I am developing practical SQL and PostgreSQL skills through self-directed portfolio projects focused on business reporting, KPI analysis, data quality and reporting validation.
 
----
+RetailMart is an independent learning project demonstrating my applied SQL work with simulated retail data. It is not professional employment experience.
