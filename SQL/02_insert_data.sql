@@ -1,20 +1,54 @@
+
 -- ==========================================================
 -- RETAILMART EXECUTIVE REPORTING SQL PROJECT
 -- Sample Data Load
--- PostgreSQL
+-- Database: PostgreSQL
 --
--- Purpose:
--- Load realistic simulated RetailMart data into the
--- relational database for SQL reporting and analysis.
+-- PURPOSE:
+-- Populate the RetailMart relational database with simulated
+-- business data for SQL reporting and analysis.
 --
--- Reporting Focus:
+-- REPORTING AREAS:
 -- - Sales performance
 -- - Customer activity
 -- - Product performance
 -- - Store performance
--- - Returns
--- - Sales targets
+-- - Employee assignments
+-- - Product returns
+-- - Monthly sales targets
+-- - Calendar-based reporting
+--
+-- EXECUTION NOTES:
+-- 1. Create the database tables before running this script.
+-- 2. Run against empty project tables.
+-- 3. Run the complete script in its intended order.
+-- 4. This script is designed for an initial data load.
+--    It is not idempotent and should not be repeatedly run
+--    against tables containing the existing sample records.
+-- 5. Returns reference generated sales IDs 1-20. This assumes
+--    the sales identity/sequence starts at the expected value.
+--
+-- DATA SCOPE:
+-- - 20 customers
+-- - 15 products
+-- - 10 stores
+-- - 10 employees
+-- - 20 sales records
+-- - 5 return records
+-- - 10 monthly sales targets
+-- - 365 calendar records
+--
+-- DATA CLASSIFICATION:
+-- All records are simulated and are not actual business data.
+--
 -- ==========================================================
+
+
+-- ==========================================================
+-- BEGIN TRANSACTION
+-- ==========================================================
+
+BEGIN;
 
 
 -- ==========================================================
@@ -236,5 +270,132 @@ FROM generate_series(
 
 
 -- ==========================================================
--- DATA LOAD COMPLETE
+-- 9. POST-LOAD VALIDATION
 -- ==========================================================
+
+-- 9.1 Confirm expected record counts across all eight tables.
+
+SELECT
+    'customers' AS table_name,
+    COUNT(*) AS actual_records,
+    20 AS expected_records,
+    COUNT(*) = 20 AS count_check
+FROM customers
+
+UNION ALL
+
+SELECT
+    'products',
+    COUNT(*),
+    15,
+    COUNT(*) = 15
+FROM products
+
+UNION ALL
+
+SELECT
+    'stores',
+    COUNT(*),
+    10,
+    COUNT(*) = 10
+FROM stores
+
+UNION ALL
+
+SELECT
+    'employees',
+    COUNT(*),
+    10,
+    COUNT(*) = 10
+FROM employees
+
+UNION ALL
+
+SELECT
+    'sales',
+    COUNT(*),
+    20,
+    COUNT(*) = 20
+FROM sales
+
+UNION ALL
+
+SELECT
+    'returns',
+    COUNT(*),
+    5,
+    COUNT(*) = 5
+FROM returns
+
+UNION ALL
+
+SELECT
+    'targets',
+    COUNT(*),
+    10,
+    COUNT(*) = 10
+FROM targets
+
+UNION ALL
+
+SELECT
+    'calendar',
+    COUNT(*),
+    365,
+    COUNT(*) = 365
+FROM calendar;
+
+
+-- 9.2 Check whether stored sales totals agree with
+--     quantity multiplied by unit price.
+
+SELECT
+    sale_id,
+    quantity,
+    unit_price,
+    total_amount,
+    quantity * unit_price AS calculated_amount
+FROM sales
+WHERE total_amount <> quantity * unit_price;
+
+
+-- 9.3 Check for return records without a matching sale.
+
+SELECT
+    r.sale_id,
+    r.return_date,
+    r.refund_amount
+FROM returns AS r
+LEFT JOIN sales AS s
+    ON r.sale_id = s.sale_id
+WHERE s.sale_id IS NULL;
+
+
+-- 9.4 Review the calendar date range and record count.
+
+SELECT
+    MIN(calendar_date) AS first_calendar_date,
+    MAX(calendar_date) AS last_calendar_date,
+    COUNT(*) AS calendar_records
+FROM calendar;
+
+
+-- 9.5 Review the recorded sales and return totals.
+
+SELECT
+    SUM(total_amount) AS recorded_sales_amount,
+    (
+        SELECT SUM(refund_amount)
+        FROM returns
+    ) AS recorded_refund_amount,
+    COUNT(*) AS sales_records
+FROM sales;
+
+
+-- ==========================================================
+-- DATA LOAD COMPLETE
+-- Review validation results before treating the sample
+-- dataset as ready for reporting and analysis.
+-- ==========================================================
+
+COMMIT;
